@@ -5,13 +5,13 @@ use Restserver\Libraries\REST_Controller;
 	require APPPATH . 'libraries/REST_Controller.php';
     require APPPATH . 'libraries/Format.php';	
     
-Class Branches extends REST_Controller{
+Class Review extends REST_Controller{
     public function __construct(){
         header('Access-Control-Allow-Origin: *');
         header("Access-Control-Allow-Methods: GET, OPTIONS, POST, DELETE");
         header("Access-Control-Allow-Headers: Content-Type, Content-Length, Accept-Encoding, Authorization");
         parent::__construct();
-        $this->load->model('BranchesModel');
+        $this->load->model('ReviewModel');
         $this->load->library('form_validation');
 
         // Load these helper to create JWT tokens
@@ -51,7 +51,7 @@ Class Branches extends REST_Controller{
         }
 
     public function index_get(){
-        $data = $this->verify_request($this->db->get('branches')->result());
+        $data = $this->verify_request($this->db->get('review')->result());
 
             // Send the return data as reponse
             if(parent::HTTP_OK){
@@ -61,30 +61,32 @@ Class Branches extends REST_Controller{
 			$response = ['error' => $status, 'message' => $data];
 
             $this->response($response, $status);
-        // return $this->returnData($this->db->get('branches')->result(), false);
+        // return $this->returnData($this->db->get('review')->result(), false);
     }
     public function index_post($id = null){
         $validation = $this->form_validation;
-        $rule = $this->BranchesModel->rules();
+        $rule = $this->ReviewModel->rules();
         if($id == null){
             array_push($rule,[
-                    'field' => 'name',
-                    'label' => 'name',
-                    'rules' => 'required|regex_match[/^[a-zA-Z ]+$/]'
+                    'field' => 'user',
+                    'label' => 'user',
+                    'rules' => 'required'
+                    // |regex_match[/^[a-zA-Z ]+$/]'
                 ],
                 [
-                    'field' => 'phoneNumber',
-                    'label' => 'phoneNumber',
-                    'rules' => 'required|integer|is_unique[branches.phoneNumber]'
+                    // 'field' => 'phoneNumber',
+                    // 'label' => 'phoneNumber',
+                    // 'rules' => 'required|integer|is_unique[Review.phoneNumber]'
                 ]
             );
         }
         else{
             array_push($rule,
                 [
-                    'field' => 'name',
-                    'label' => 'name',
-                    'rules' => 'required|regex_match[/^[a-zA-Z ]+$/]'
+                    'field' => 'user',
+                    'label' => 'user',
+                    'rules' => 'required'
+                    // |regex_match[/^[a-zA-Z ]+$/]'
                 ]
             );
         }
@@ -93,13 +95,13 @@ Class Branches extends REST_Controller{
 			return $this->returnData($this->form_validation->error_array(), true);
         }
         $user = new UserData();
-        $user->name = $this->post('name');
-        $user->address = $this->post('address');
-        $user->phoneNumber = $this->post('phoneNumber');
+        $user->comment = $this->post('comment');
+        $user->rating = $this->post('rating');
+        $user->user = $this->post('user');
         if($id == null){
-            $response = $this->BranchesModel->store($user);
+            $response = $this->ReviewModel->store($user);
         }else{
-            $response = $this->BranchesModel->update($user,$id);
+            $response = $this->ReviewModel->update($user,$id);
         }
         return $this->returnData($response['msg'], $response['error']);
     }
@@ -107,7 +109,7 @@ Class Branches extends REST_Controller{
         if($id == null){
 			return $this->returnData('Parameter Id Tidak Ditemukan', true);
         }
-        $response = $this->BranchesModel->destroy($id);
+        $response = $this->ReviewModel->destroy($id);
         return $this->returnData($response['msg'], $response['error']);
     }
     public function returnData($msg,$error){
@@ -117,7 +119,7 @@ Class Branches extends REST_Controller{
     }
 }
 Class UserData{
-    public $name;
-    public $address;
-    public $phoneNumber;
+    public $comment;
+    public $rating;
+    public $user;
 }
