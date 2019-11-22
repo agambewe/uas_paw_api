@@ -79,30 +79,33 @@ Class Makeup extends REST_Controller{
                     // 'rules' => 'required|integer|is_unique[Makeup.phoneNumber]'
                 ]
             );
+            $validation->set_rules($rule);
+            if (!$validation->run()) {
+                return $this->returnData($this->form_validation->error_array(), true);
+            }
         }
-        // else{
-        //     array_push($rule,
-        //         [
-        //             // 'field' => 'name',
-        //             // 'label' => 'name',
-        //             // 'rules' => 'required|regex_match[/^[a-zA-Z ]+$/]'
-        //         ]
-        //     );
-        // }
-        $validation->set_rules($rule);
-		if (!$validation->run()) {
-			return $this->returnData($this->form_validation->error_array(), true);
+        else{
+            array_push($rule,
+                [
+                    'field' => 'name',
+                    'label' => 'name',
+                    'rules' => 'required'
+                    // |regex_match[/^[a-zA-Z ]+$/]'
+                ]
+            );
         }
         $user = new UserData();
+        $user->email = $this->post('email');
         $user->nama = $this->post('nama');
         $user->kategori = $this->post('kategori');
         $user->tanggal = $this->post('tanggal');
         $user->noTelepon = $this->post('noTelepon');
         $user->pemakeup = $this->post('pemakeup');
+        $user->status = 0;
         if($id == null){
             $response = $this->MakeupModel->store($user);
         }else{
-            $response = $this->MakeupModel->update($user,$id);
+            $response = $this->MakeupModel->update($id);
         }
         return $this->returnData($response['msg'], $response['error']);
     }
@@ -120,9 +123,11 @@ Class Makeup extends REST_Controller{
     }
 }
 Class UserData{
+    public $email;
     public $nama;
     public $kategori;
     public $tanggal;
     public $noTelepon;
     public $pemakeup;
+    public $status;
 }

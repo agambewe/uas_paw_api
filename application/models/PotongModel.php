@@ -7,6 +7,7 @@ class PotongModel extends CI_Model
 
     public $id;
     public $nama;
+    public $email;
     public $noTelepon;
     public $modelRambut;
     public $warna;
@@ -14,6 +15,7 @@ class PotongModel extends CI_Model
     public $jam;
     public $pemotong;
     public $paket;
+    public $status;
     public $rule = [ 
         [
             // 'field' => 'name',
@@ -33,6 +35,7 @@ class PotongModel extends CI_Model
     } 
     public function store($request) {
         $this->nama = $request->nama; 
+        $this->email = $request->email;
         $this->noTelepon = $request->noTelepon; 
         $this->modelRambut = $request->modelRambut;
         $this->warna = $request->warna;
@@ -40,18 +43,25 @@ class PotongModel extends CI_Model
         $this->jam = $request->jam;
         $this->pemotong = $request->pemotong;
         $this->paket = $request->paket;
+        $this->status = $request->status;
         if($this->db->insert($this->table, $this)){
             return ['msg'=>'Berhasil','error'=>false];
         }
         return ['msg'=>'Gagal','error'=>true];
     }
-    public function update($request,$id) { 
-        // $updateData = ['name' => $request->name, 'address' =>$request->address, 'phoneNumber' =>$request->phoneNumber];
-        // if($this->db->where('id',$id)->update($this->table, $updateData)){
-        //     return ['msg'=>'Berhasil','error'=>false];
-        // }
-        // return ['msg'=>'Gagal','error'=>true];
-        return ['msg'=>'gakepake ini','error'=>true];
+    public function update($id) { 
+        $dataUpdt = $this->db->select('*')->where(array('id' => $id))->get($this->table)->row();
+        if($dataUpdt->status==0){
+            $statusUpdt = 1;
+        }else{
+            $statusUpdt = 0;
+        }
+        $updateData = ['status' => $statusUpdt];
+        if($this->db->where('id',$id)->update($this->table, $updateData)){
+            return ['msg'=>'Berhasil','error'=>false];
+        }
+        return ['msg'=>'Gagal','error'=>true];
+        // return ['msg'=>'gakepake ini','error'=>true];
     }
     public function destroy($id){
         if (empty($this->db->select('*')->where(array('id' => $id))->get($this->table)->row())) return ['msg'=>'Id tidak ditemukan','error'=>true];

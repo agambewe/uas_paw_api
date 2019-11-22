@@ -79,22 +79,24 @@ Class Potong extends REST_Controller{
                     // 'rules' => 'required|integer|is_unique[Potong.phoneNumber]'
                 ]
             );
+            $validation->set_rules($rule);
+            if (!$validation->run()) {
+                return $this->returnData($this->form_validation->error_array(), true);
+            }
         }
-        // else{
-        //     array_push($rule,
-        //         [
-        //             // 'field' => 'name',
-        //             // 'label' => 'name',
-        //             // 'rules' => 'required|regex_match[/^[a-zA-Z ]+$/]'
-        //         ]
-        //     );
-        // }
-        $validation->set_rules($rule);
-		if (!$validation->run()) {
-			return $this->returnData($this->form_validation->error_array(), true);
+        else{
+            array_push($rule,
+                [
+                    'field' => 'name',
+                    'label' => 'name',
+                    'rules' => 'required'
+                    // |regex_match[/^[a-zA-Z ]+$/]'
+                ]
+            );
         }
         $user = new UserData();
         $user->nama = $this->post('nama');
+        $user->email = $this->post('email');
         $user->noTelepon = $this->post('noTelepon');
         $user->modelRambut = $this->post('modelRambut');
         $user->warna = $this->post('warna');
@@ -102,10 +104,11 @@ Class Potong extends REST_Controller{
         $user->jam = $this->post('jam');
         $user->pemotong = $this->post('pemotong');
         $user->paket = $this->post('paket');
+        $user->status = 0;
         if($id == null){
             $response = $this->PotongModel->store($user);
         }else{
-            $response = $this->PotongModel->update($user,$id);
+            $response = $this->PotongModel->update($id);
         }
         return $this->returnData($response['msg'], $response['error']);
     }
@@ -125,6 +128,7 @@ Class Potong extends REST_Controller{
 Class UserData{
 
     public $nama;
+    public $email;
     public $noTelepon;
     public $modelRambut;
     public $warna;
@@ -132,4 +136,5 @@ Class UserData{
     public $jam;
     public $pemotong;
     public $paket;
+    public $status;
 }
