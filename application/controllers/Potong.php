@@ -51,7 +51,7 @@ Class Potong extends REST_Controller{
         }
 
     public function index_get(){
-        $data = $this->verify_request($this->db->get('potong')->result());
+        $data = $this->verify_request($this->PotongModel->getAll());
 
             // Send the return data as reponse
             if(parent::HTTP_OK){

@@ -95,6 +95,7 @@ Class Review extends REST_Controller{
 			return $this->returnData($this->form_validation->error_array(), true);
         }
         $user = new UserData();
+        $user->email = $this->post('email');
         $user->comment = $this->post('comment');
         $user->rating = $this->post('rating');
         $user->user = $this->post('user');
@@ -119,6 +120,7 @@ Class Review extends REST_Controller{
     }
 }
 Class UserData{
+    public $email;
     public $comment;
     public $rating;
     public $user;

@@ -114,19 +114,18 @@
                     'label' => 'email',
                     'rules' => 'required|valid_email|is_unique[users.email]'    
                 ]);
+                $validation->set_rules($rule);
+
+                if (!$validation->run()) 
+                    return $this->returnData($this->form_validation->error_array(), true);
+                
             } else {
                 array_push($rule, [
-                    'field' => 'email',
-                    'label' => 'email',
-                    'rules' => 'required|valid_email'
+                    // 'field' => 'email',
+                    // 'label' => 'email',
+                    // 'rules' => 'required|valid_email'
                 ]);
             }
-
-            $validation->set_rules($rule);
-
-            if (!$validation->run()) 
-                return $this->returnData($this->form_validation->error_array(), true);
-            
             $user = new UserData();
             $user->name = $this->post('name');
             $user->password = $this->post('password');
@@ -173,6 +172,7 @@
                 }
             }
             else 
+                // $response = $this->UserModel->update($id);
                 $response = $this->UserModel->update($user, $id);
             return $this->returnData($response['msg'], $response['error']);
 		}

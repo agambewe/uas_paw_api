@@ -6,6 +6,7 @@ class ReviewModel extends CI_Model
     private $table = 'review';
 
     public $id;
+    public $email;
     public $comment;
     public $rating;
     public $user;
@@ -27,6 +28,7 @@ class ReviewModel extends CI_Model
         $this->db->get('review')->result(); 
     }
     public function store($request) {
+        $this->email = $request->email; 
         $this->comment = $request->comment; 
         $this->rating = $request->rating; 
         $this->user = $request->user;

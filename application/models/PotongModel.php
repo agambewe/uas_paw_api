@@ -31,7 +31,7 @@ class PotongModel extends CI_Model
     public function Rules() { return $this->rule; }
 
     public function getAll() { return 
-        $this->db->get('potong')->result(); 
+        $this->db->order_by("tanggal", "desc")->get('potong')->result(); 
     } 
     public function store($request) {
         $this->nama = $request->nama; 

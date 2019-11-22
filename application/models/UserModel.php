@@ -69,16 +69,30 @@
 
 
         public function update($request, $id) {
-            $updateData = [
-                'email' => $request->email,
-                'name' => $request->name
-            ];
-
-            if ($this->db->where('id', $id)->update($this->table, $updateData)) {
-                return [
-                    'msg' => 'Berhasil',
-                    'error' => FALSE,
+            if(strlen($request->email)<1){
+                $dataUpdt = $this->db->select('*')->where(array('id' => $id))->get($this->table)->row();
+                if($dataUpdt->status==0){
+                    $statusUpdt = 1;
+                }else{
+                    $statusUpdt = 0;
+                }
+                $updateData = ['status' => $statusUpdt];
+                if($this->db->where('id',$id)->update($this->table, $updateData)){
+                    return ['msg'=>'Berhasil','error'=>false];
+                }
+                return ['msg'=>'Gagal','error'=>true];
+            }else{
+                $updateData = [
+                    'email' => $request->email,
+                    'name' => $request->name
                 ];
+
+                if ($this->db->where('id', $id)->update($this->table, $updateData)) {
+                    return [
+                        'msg' => 'Berhasil',
+                        'error' => FALSE,
+                    ];
+                }
             }
 
             return [
