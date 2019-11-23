@@ -50,6 +50,22 @@
 			}
         }
         
+        public function find_get() {
+            $email = $this->get('email');
+            $email = base64_decode($email);
+            $data = $this->verify_request($this->UserModel->find($email));
+
+            // Send the return data as reponse
+            if(parent::HTTP_OK){
+                $status = false;
+            }
+
+			$response = ['error' => $status, 'message' => $data];
+
+            $this->response($response, $status);
+            // return $this->returnData($this->db->get('users')->result(), false);
+        }
+
 		public function login_post(){
         // Have dummy user details to check user credentials
         // send via postman
@@ -64,9 +80,10 @@
             }else{
                 // Create a token from the user data and send it as reponse
                 $token = AUTHORIZATION::generateToken(['email' => $data[0]['email']]);
+                $email = $data[0]['email'];
                 // Prepare the response
                 $status = parent::HTTP_OK;
-                $response = ['status' => $status, 'token' => $token];
+                $response = ['status' => $status, 'token' => $token, 'email' => $email];
                 $this->response($response, $status);
             }
         }
@@ -86,7 +103,7 @@
         }
         
         public function index_get() {
-			$data = $this->verify_request($this->db->get('users')->result());
+            $data = $this->verify_request($this->UserModel->getAll());
 
             // Send the return data as reponse
             if(parent::HTTP_OK){
@@ -171,9 +188,27 @@
                     return $this->returnData("Message could not be sent. Mailer Error:", $mail->ErrorInfo);
                 }
             }
-            else 
+            else{
                 // $response = $this->UserModel->update($id);
+                $config['upload_path']          = './uploads/';
+                $config['allowed_types']        = 'gif|jpg|png';
+                $awal = explode('@', $user->email);
+                $config['file_name']            = 'profile_'.$awal[0];
+                $config['overwrite']			= true;
+                $config['max_size']             = 1024; // 1MB
+                // $config['max_width']            = 1024;
+                // $config['max_height']           = 768;
+
+                $this->load->library('upload', $config);
+
+                if ($this->upload->do_upload('image')) {
+                    $user->image = $this->upload->data("file_name");
+                }else{
+                    $user->image = "default.jpg";
+                }
+
                 $response = $this->UserModel->update($user, $id);
+            }
             return $this->returnData($response['msg'], $response['error']);
 		}
 		

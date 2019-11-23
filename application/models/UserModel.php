@@ -25,9 +25,12 @@
             return $this->rule;
         }
 
-
         public function getAll() {
-            $this->db->get('data_mahasiswa')->result();
+            return $this->db->order_by("id", "desc")->get('users')->result();
+        }
+
+        public function find($email) {
+            return $this->db->select('*')->where(array('email' => $email))->get($this->table)->row();
         }
 
         public function verif($email, $hash) {
@@ -84,7 +87,9 @@
             }else{
                 $updateData = [
                     'email' => $request->email,
-                    'name' => $request->name
+                    'name' => $request->name,
+                    'image' => $request->image,
+                    'password' => password_hash($request->password, PASSWORD_BCRYPT)
                 ];
 
                 if ($this->db->where('id', $id)->update($this->table, $updateData)) {
