@@ -87,10 +87,15 @@
             }else{
                 $updateData = [
                     'email' => $request->email,
-                    'name' => $request->name,
-                    'image' => $request->image,
-                    'password' => password_hash($request->password, PASSWORD_BCRYPT)
+                    'name' => $request->name
                 ];
+                if(strlen($request->password)>1){
+                    $password = password_hash($request->password, PASSWORD_BCRYPT);
+                    $updateData['password'] = $password;
+                }
+                if($request->image!="default.jpg"){
+                    $updateData['image'] = $request->image;
+                }
 
                 if ($this->db->where('id', $id)->update($this->table, $updateData)) {
                     return [
