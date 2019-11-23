@@ -89,7 +89,7 @@
                     'email' => $request->email,
                     'name' => $request->name
                 ];
-                if(strlen($request->password)>1){
+                if($request->password!=null){
                     $password = password_hash($request->password, PASSWORD_BCRYPT);
                     $updateData['password'] = $password;
                 }
