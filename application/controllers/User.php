@@ -77,7 +77,7 @@
         if ($email === $data[0]['email'] && password_verify($password,  $data[0]['password'])) {
             if($data[0]['status'] == 0){
                 $status = parent::HTTP_OK;
-                $response = ['status' => $status, 'email' => $email, 'msg' => 'Akun belum diaktivasi!'];
+                $response = ['status' => $status, 'email' => $email, 'msg' => 'Akun belum diaktivasi!', 'error' => true];
                 $this->response($response, $status);
             }else{
                 // Create a token from the user data and send it as reponse
