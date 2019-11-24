@@ -116,6 +116,19 @@ Class Pekerja extends REST_Controller{
             $this->response($response, $status);
         // return $this->returnData($this->db->get('pekerja')->result(), false);
     }
+    public function pemakeupavail_get(){
+        $data = $this->verify_request($this->PekerjaModel->getAvailPemakeup());
+
+            // Send the return data as reponse
+            if(parent::HTTP_OK){
+                $status = false;
+            }
+
+			$response = ['error' => $status, 'message' => $data];
+
+            $this->response($response, $status);
+        // return $this->returnData($this->db->get('pekerja')->result(), false);
+    }
     public function index_post($id = null){
         $validation = $this->form_validation;
         $rule = $this->PekerjaModel->rules();

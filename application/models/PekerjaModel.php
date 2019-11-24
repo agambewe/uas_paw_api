@@ -38,6 +38,9 @@ class PekerjaModel extends CI_Model
     public function getPemakeup() { return 
         $this->db->where('posisi','pemakeup')->get('pekerja')->result(); 
     } 
+    public function getAvailPemakeup() { return 
+        $this->db->where(['posisi' => 'pemakeup','status' => 1])->get('pekerja')->result(); 
+    } 
     public function store($request) {
         $this->nama = $request->nama; 
         $this->posisi = $request->posisi;
