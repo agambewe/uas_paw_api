@@ -29,6 +29,12 @@ class PekerjaModel extends CI_Model
     public function getPemotong() { return 
         $this->db->where('posisi','pemotong')->get('pekerja')->result(); 
     } 
+    // public function getNamaPemotong() { return 
+    //     $this->db->select('nama')->where(['posisi' => 'pemotong'])->get('pekerja')->result_array(); 
+    // } 
+    public function getAvailPemotong() { return 
+        $this->db->where(['posisi' => 'pemotong','status' => 1])->get('pekerja')->result(); 
+    } 
     public function getPemakeup() { return 
         $this->db->where('posisi','pemakeup')->get('pekerja')->result(); 
     } 

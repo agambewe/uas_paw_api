@@ -76,6 +76,33 @@ Class Pekerja extends REST_Controller{
             $this->response($response, $status);
         // return $this->returnData($this->db->get('pekerja')->result(), false);
     }
+    public function pemotongavail_get(){
+        $data = $this->verify_request($this->PekerjaModel->getAvailPemotong());
+
+            // Send the return data as reponse
+            if(parent::HTTP_OK){
+                $status = false;
+            }
+
+			$response = ['error' => $status, 'message' => $data];
+
+            $this->response($response, $status);
+        // return $this->returnData($this->db->get('pekerja')->result(), false);
+    }
+    // public function pemotongn_get(){
+    //     $data = $this->verify_request($this->PekerjaModel->getNamaPemotong());
+    //     $data_rtn = [];
+
+    //         // Send the return data as reponse
+    //         if(parent::HTTP_OK){
+    //             $status = false;
+    //         }
+    //         foreach ($data as &$data_temp) {
+    //             $data_rtn[] = $data_temp['nama'];
+    //         }
+    //         $this->response($data_rtn);
+    //     // return $this->returnData($this->db->get('pekerja')->result(), false);
+    // }
     public function pemakeup_get(){
         $data = $this->verify_request($this->PekerjaModel->getPemakeup());
 

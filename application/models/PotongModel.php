@@ -29,7 +29,6 @@ class PotongModel extends CI_Model
         ],
     ];
     public function Rules() { return $this->rule; }
-
     public function getAll() { return 
         $this->db->order_by("tanggal", "desc")->get('potong')->result(); 
     } 
