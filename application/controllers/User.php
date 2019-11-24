@@ -76,19 +76,23 @@
         // Check if valid user
         if ($email === $data[0]['email'] && password_verify($password,  $data[0]['password'])) {
             if($data[0]['status'] == 0){
-                $this->response(['msg' => 'Akun belum diaktivasi!'], parent::HTTP_NOT_FOUND);
+                $status = parent::HTTP_OK;
+                $response = ['status' => $status, 'email' => $email, 'msg' => 'Akun belum diaktivasi!'];
+                $this->response($response, $status);
             }else{
                 // Create a token from the user data and send it as reponse
                 $token = AUTHORIZATION::generateToken(['email' => $data[0]['email']]);
                 $email = $data[0]['email'];
                 // Prepare the response
                 $status = parent::HTTP_OK;
-                $response = ['status' => $status, 'token' => $token, 'email' => $email];
+                $response = ['status' => $status, 'token' => $token, 'email' => $email, 'msg' => 'Berhasil login!'];
                 $this->response($response, $status);
             }
         }
         else {
-                $this->response(['msg' => 'Invalid email or password!'], parent::HTTP_NOT_FOUND);
+                $status = parent::HTTP_NOT_FOUND;
+                $response = ['status' => $status, 'email' => $email, 'msg' => 'Invalid email or password!'];
+                $this->response($response, $status);
             }
         }
 
@@ -143,6 +147,7 @@
                     // 'rules' => 'required|valid_email'
                 ]);
             }
+                
             $user = new UserData();
             $user->name = $this->post('name');
             $user->password = $this->post('password');
