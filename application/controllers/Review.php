@@ -53,7 +53,6 @@ Class Review extends REST_Controller{
     public function find_get() {
         $email = $this->get('email');
         $email = base64_decode($email);
-        $this->response($response, $email);
         $data = $this->verify_request($this->ReviewModel->find($email));
 
         // Send the return data as reponse
