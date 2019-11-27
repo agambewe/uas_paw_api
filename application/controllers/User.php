@@ -157,8 +157,8 @@
             $user->image = "default.png";
 
             // $mail = new PHPMailer\PHPMailer\PHPMailer();
-            $this->load->library('Mail');
-
+            $ci =& get_instance();
+            $ci->load->library('Mail');
             $mail = $this->Mail->load(); 
             if ($id == null){
                 // $base_url = "http://iconic-shoes-care.com/";
