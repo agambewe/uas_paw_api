@@ -1,5 +1,5 @@
 <?php
-Class Laporanpdf extends CI_Controller{
+Class Laporan extends CI_Controller{
     
     function __construct() {
         parent::__construct();
@@ -8,7 +8,7 @@ Class Laporanpdf extends CI_Controller{
         $this->load->model("MakeupModel"); 
     }
     
-    function potong_get(){
+    function potong(){
         $pdf = new FPDF('l','mm','A4');
         // Menambah halaman baru
         $pdf->AddPage();
