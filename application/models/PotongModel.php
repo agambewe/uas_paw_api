@@ -36,7 +36,7 @@ class PotongModel extends CI_Model
         $this->db->order_by("tanggal", "desc")->where(['status' => 1])->get('potong')->result();
     } 
     public function find($email) {
-        return $this->db->select('*')->where(array('email' => $email))->get($this->table)->row();
+        return $this->db->order_by("tanggal", "desc")->where(['status' => 0, 'email' => $email])->get($this->table)->result();
     }
     public function store($request) {
         $this->nama = $request->nama; 
