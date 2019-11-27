@@ -95,6 +95,10 @@ Class Review extends REST_Controller{
                     // 'rules' => 'required|integer|is_unique[Review.phoneNumber]'
                 ]
             );
+            $validation->set_rules($rule);
+            if (!$validation->run()) {
+                return $this->returnData($this->form_validation->error_array(), true);
+            }
         }
         else{
             array_push($rule,
@@ -105,10 +109,6 @@ Class Review extends REST_Controller{
                     // |regex_match[/^[a-zA-Z ]+$/]'
                 ]
             );
-        }
-        $validation->set_rules($rule);
-		if (!$validation->run()) {
-			return $this->returnData($this->form_validation->error_array(), true);
         }
         $user = new UserData();
         $user->email = $this->post('email');
