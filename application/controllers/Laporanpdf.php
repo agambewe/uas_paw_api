@@ -6,7 +6,7 @@ Class Laporanpdf extends CI_Controller{
         $this->load->library('pdf');
         $this->load->model("PotongModel"); 
     }
-    function index_get(){
+    function index(){
         $pdf = new FPDF('l','mm','A4');
 // Menambah halaman baru
 $pdf->AddPage();
