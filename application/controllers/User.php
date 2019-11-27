@@ -158,7 +158,7 @@
 
             // $mail = new PHPMailer\PHPMailer\PHPMailer();
             $this->load->library('Mail');
-            $mail = $this->Mail->load(); 
+            $mail = new PHPMailer;
             if ($id == null){
                 // $base_url = "http://iconic-shoes-care.com/";
                 $url = "http://api.drugsative.xyz/";
