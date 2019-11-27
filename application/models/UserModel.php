@@ -40,7 +40,7 @@
             if((array)$cek){
                 if ($this->db->where($where)->update($this->table, $updateData)) {
                     return [
-                        'msg' => 'Berhasil',
+                        'msg' => 'Berhasil verif',
                         'error' => FALSE,
                     ];
                 }

@@ -195,7 +195,7 @@
                     if($mail->Send())        //Send an Email. Return true on success or false on error
                     {
                         $response = $this->UserModel->store($user);
-                        return $this->returnData($response['msg'], $response['error']);
+                        return $this->returnData("Sukses kirim bro", false);
                     }
                 } catch (Exception $e) {
                     return $this->returnData("Message could not be sent. Mailer Error:", $mail->ErrorInfo);
