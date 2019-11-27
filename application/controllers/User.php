@@ -170,7 +170,7 @@
                 ";
                 
                 try {
-                    $mail->SMTPDebug = 0;  
+                    $mail->SMTPDebug = 2;  
                     $mail->IsSMTP();        //Sets Mailer to send message using SMTP
                     $mail->Host = 'smtp.gmail.com';  //Sets the SMTP hosts of your Email hosting, this for Godaddy
                     $mail->Port = 587;        //Sets the default SMTP server port
