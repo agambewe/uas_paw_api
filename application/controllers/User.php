@@ -13,7 +13,6 @@
 
             parent::__construct();
             $this->load->model('UserModel');
-            $this->load->library("Mailer");
 			$this->load->library('form_validation');
 			$this->load->helper(['jwt', 'authorization']);
         }
@@ -157,6 +156,7 @@
             $user->image = "default.png";
 
             // $mail = new PHPMailer\PHPMailer\PHPMailer();
+            $this->load->library('Mailer');
             $mail = $this->Mailer->load();
             if ($id == null){
                 // $base_url = "http://iconic-shoes-care.com/";
