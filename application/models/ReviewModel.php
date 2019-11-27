@@ -27,6 +27,9 @@ class ReviewModel extends CI_Model
     public function getAll() { return
         $this->db->get('review')->result(); 
     }
+    public function find($email) {
+        return $this->db->select('*')->where(array('email' => $email))->get($this->table)->row();
+    }
     public function store($request) {
         $this->email = $request->email; 
         $this->comment = $request->comment; 
