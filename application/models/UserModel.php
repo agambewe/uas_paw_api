@@ -36,17 +36,25 @@
         public function verif($email, $hash) {
             $where = ['email ' => $email , 'hash ' => $hash];
             $updateData = ['status' => 1];
-            if ($this->db->where($where)->update($this->table, $updateData)) {
+            $cek = $this->db->where($where)->get($this->table)->row();
+            if((array)$cek){
+                if ($this->db->where($where)->update($this->table, $updateData)) {
+                    return [
+                        'msg' => 'Berhasil',
+                        'error' => FALSE,
+                    ];
+                }
+    
                 return [
-                    'msg' => 'Berhasil',
-                    'error' => FALSE,
+                    'msg' => 'Gagal',
+                    'error' => TRUE,
+                ];
+            }else{
+                return [
+                    'msg' => 'Hash & Email tidak cocok',
+                    'error' => TRUE,
                 ];
             }
-
-            return [
-                'msg' => 'Gagal',
-                'error' => TRUE,
-            ];
         }
 
         public function store($request) {

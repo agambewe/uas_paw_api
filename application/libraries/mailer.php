@@ -1,5 +1,5 @@
 <?php
-class mailer {
+class Mailer {
 
     function __construct() {
         require_once APPPATH.'third_party/PHPMailer/src/Exception.php';

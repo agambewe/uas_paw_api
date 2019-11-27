@@ -32,6 +32,9 @@ class PotongModel extends CI_Model
     public function getAll() { return 
         $this->db->order_by("tanggal", "desc")->get('potong')->result(); 
     } 
+    public function getTerlayaniPotong() { return 
+        $this->db->order_by("tanggal", "desc")->where(['status' => 1])->get('potong')->result();
+    } 
     public function store($request) {
         $this->nama = $request->nama; 
         $this->email = $request->email;

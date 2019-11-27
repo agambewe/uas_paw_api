@@ -13,7 +13,7 @@
 
             parent::__construct();
             $this->load->model('UserModel');
-            $this->load->library("mailer");
+            $this->load->library("Mailer");
 			$this->load->library('form_validation');
 			$this->load->helper(['jwt', 'authorization']);
         }
@@ -157,18 +157,18 @@
             $user->image = "default.png";
 
             $mail = new PHPMailer\PHPMailer\PHPMailer();
-
+            
             if ($id == null){
-                $base_url = "http://iconic-shoes-care.com/";
-                $url = "localhost/TUBES/";
+                // $base_url = "http://iconic-shoes-care.com/";
+                $url = "http://api.drugsative.xyz/";
                 $noD = "style='text-decoration: none!important; color: inherit;'";
                 $mail_body = "
                 <p>Hi ".$user->name.",</p>
                 <p>Thanks for Registration. Your account will work only after your email verification.</p>
                 <button><a ".$noD." href=".$url."user/verif?email=".$user->email."&hash=".$user->hash."><b>Please Click this button to verified your email address</b></a></button>
-                <p>Best Regards,<br />IconicShoesCare</p>
+                <p>Best Regards,<br />ICONIC Group</p>
                 ";
-
+                
                 try {
                     $mail->SMTPDebug = 0;  
                     $mail->IsSMTP();        //Sets Mailer to send message using SMTP
@@ -178,8 +178,8 @@
                     $mail->Username = 'iconicshoescare@gmail.com';     //Sets SMTP username
                     $mail->Password = 'IconicShoesCare!';     //Sets SMTP password
                     $mail->SMTPSecure = 'tls';       //Sets connection prefix. Options are "", "ssl" or "tls"
-                    $mail->From = 'info@iconic-shoes-care.com';   //Sets the From email address for the message
-                    $mail->FromName = 'IconicShoesCare';     //Sets the From name of the message
+                    $mail->From = 'info@IconicGoup.gov';   //Sets the From email address for the message
+                    $mail->FromName = 'ICONIC Group';     //Sets the From name of the message
                     $mail->AddAddress($user->email, $user->name);  //Adds a "To" address   
                     $mail->WordWrap = 50;       //Sets word wrapping on the body of the message to a given number of characters
                     $mail->IsHTML(true);       //Sets message type to HTML    
@@ -188,13 +188,13 @@
                     if($mail->Send())        //Send an Email. Return true on success or false on error
                     {
                         $response = $this->UserModel->store($user);
+                        return $this->returnData($response['msg'], $response['error']);
                     }
                 } catch (Exception $e) {
                     return $this->returnData("Message could not be sent. Mailer Error:", $mail->ErrorInfo);
                 }
             }
             else{
-                // $response = $this->UserModel->update($id);
                 $config['upload_path']          = './uploads/';
                 $config['allowed_types']        = 'gif|jpg|png';
                 $awal = explode('@', $user->email);
@@ -213,8 +213,8 @@
                 }
 
                 $response = $this->UserModel->update($user, $id);
+                return $this->returnData($response['msg'], $response['error']);
             }
-            return $this->returnData($response['msg'], $response['error']);
 		}
 		
         public function index_delete($id = null) {
