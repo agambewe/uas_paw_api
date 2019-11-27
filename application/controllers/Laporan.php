@@ -16,7 +16,7 @@ Class Laporan extends REST_Controller{
         $this->load->model("MakeupModel"); 
         
     }
-    function index(){
+    function index_get(){
         echo "Laporan pdf";
     }
 
