@@ -1,17 +1,26 @@
 <?php
-Class Laporan extends CI_Controller{
+use Restserver\Libraries\REST_Controller;
+	defined('BASEPATH') OR exit('No direct script access allowed');
+
+	require APPPATH . 'libraries/REST_Controller.php';
+    require APPPATH . 'libraries/Format.php';	
+Class Laporan extends REST_Controller{
     
     function __construct() {
+        header('Access-Control-Allow-Origin: *');
+        header("Access-Control-Allow-Methods: GET, OPTIONS, POST, DELETE");
+        header("Access-Control-Allow-Headers: Content-Type, Content-Length, Accept-Encoding, Authorization");
         parent::__construct();
         $this->load->library('Pdf');
         $this->load->model("PotongModel"); 
         $this->load->model("MakeupModel"); 
+        
     }
     function index(){
         echo "Laporan pdf";
     }
-    
-    function potong(){
+
+    function potong_get(){
         $pdf = new FPDF('l','mm','A4');
         // Menambah halaman baru
         $pdf->AddPage();
