@@ -3,7 +3,12 @@
 	defined('BASEPATH') OR exit('No direct script access allowed');
 
 	require APPPATH . 'libraries/REST_Controller.php';
-	require APPPATH . 'libraries/Format.php';	
+    require APPPATH . 'libraries/Format.php';
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\Exception;	
+    require APPPATH."third_party/PHPMailer/src/Exception.php";
+    require APPPATH."third_party/PHPMailer/src/PHPMailer.php";
+    require APPPATH."third_party/PHPMailer/src/SMTP.php";
 
     class User extends REST_Controller {
         public function __construct() {
@@ -13,7 +18,7 @@
 
             parent::__construct();
             $this->load->model('UserModel');
-            $this->load->library('PHP_Mailer');
+            // $this->load->library('PHP_Mailer');
 			$this->load->library('form_validation');
 			$this->load->helper(['jwt', 'authorization']);
         }
@@ -156,7 +161,7 @@
             $user->status = 0;
             $user->image = "default.png";
 
-            $mail = $this->PHP_Mailer->load();
+            $mail = new PHPMailer;
             // $mail = new PHPMailer\PHPMailer\PHPMailer();
             if ($id == null){
                 // $base_url = "http://iconic-shoes-care.com/";
