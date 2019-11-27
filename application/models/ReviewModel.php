@@ -41,7 +41,7 @@ class ReviewModel extends CI_Model
         return ['msg'=>'Gagal','error'=>true];
     }
     public function update($request,$id) { 
-        $updateData = ['comment' => $request->comment, 'rating' =>$request->rating];
+        $updateData = ['user' => $request->user, 'comment' => $request->comment, 'rating' =>$request->rating];
         if($this->db->where('id',$id)->update($this->table, $updateData)){
             return ['msg'=>'Berhasil','error'=>false];
         }
