@@ -7,6 +7,9 @@ Class Laporan extends CI_Controller{
         $this->load->model("PotongModel"); 
         $this->load->model("MakeupModel"); 
     }
+    function index(){
+        echo "Laporan pdf";
+    }
     
     function potong(){
         $pdf = new FPDF('l','mm','A4');
