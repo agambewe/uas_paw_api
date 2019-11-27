@@ -156,8 +156,8 @@
             $user->status = 0;
             $user->image = "default.png";
 
-            $mail = new PHPMailer\PHPMailer\PHPMailer();
-            
+            // $mail = new PHPMailer\PHPMailer\PHPMailer();
+            $mail = $this->Mailer->load();
             if ($id == null){
                 // $base_url = "http://iconic-shoes-care.com/";
                 $url = "http://api.drugsative.xyz/";
@@ -178,8 +178,9 @@
                     $mail->Username = 'iconicshoescare@gmail.com';     //Sets SMTP username
                     $mail->Password = 'IconicShoesCare!';     //Sets SMTP password
                     $mail->SMTPSecure = 'tls';       //Sets connection prefix. Options are "", "ssl" or "tls"
-                    $mail->From = 'info@IconicGoup.gov';   //Sets the From email address for the message
-                    $mail->FromName = 'ICONIC Group';     //Sets the From name of the message
+                    // $mail->From = 'info@IconicGoup.gov';   //Sets the From email address for the message
+                    // $mail->FromName = 'ICONIC Group';     //Sets the From name of the message
+                    $mail->setFrom('iconicshoescare@gmail.com', 'ICONIC Group');
                     $mail->AddAddress($user->email, $user->name);  //Adds a "To" address   
                     $mail->WordWrap = 50;       //Sets word wrapping on the body of the message to a given number of characters
                     $mail->IsHTML(true);       //Sets message type to HTML    
