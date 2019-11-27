@@ -13,7 +13,7 @@
 
             parent::__construct();
             $this->load->model('UserModel');
-            $this->load->library("PHP_Mailer");
+            $this->load->library('PHP_Mailer');
 			$this->load->library('form_validation');
 			$this->load->helper(['jwt', 'authorization']);
         }
@@ -156,8 +156,8 @@
             $user->status = 0;
             $user->image = "default.png";
 
-            $mail = new PHPMailer\PHPMailer\PHPMailer();
-            // $mail = $this->Mailer->load();
+            // $mail = new PHPMailer\PHPMailer\PHPMailer();
+            $mail = $this->PHP_Mailer->load();
             if ($id == null){
                 // $base_url = "http://iconic-shoes-care.com/";
                 $url = "http://api.drugsative.xyz/";
