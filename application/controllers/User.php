@@ -156,8 +156,8 @@
             $user->image = "default.png";
 
             // $mail = new PHPMailer\PHPMailer\PHPMailer();
-            $this->load->library('phpmailer_library');
-            $mail = $this->phpmailer_library->load();
+            $this->load->library('Phpmailer_library');
+            $mail = $this->Phpmailer_library->load();
             if ($id == null){
                 // $base_url = "http://iconic-shoes-care.com/";
                 $url = "http://api.drugsative.xyz/";

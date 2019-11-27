@@ -3,7 +3,7 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-class phpmailer_library
+class Phpmailer_library
 {
     public function __construct()
     {
