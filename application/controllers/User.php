@@ -182,7 +182,7 @@
                     $mail->Port = 465;        //Sets the default SMTP server port
                     $mail->SMTPAuth = true;       //Sets SMTP authentication. Utilizes the Username and Password variables
                     $mail->Username = 'iconicshoescare@gmail.com';     //Sets SMTP username
-                    $mail->Password = 'IconicShoesCare!';     //Sets SMTP password
+                    $mail->Password = 'IconicShoesCare#';     //Sets SMTP password
                     $mail->SMTPSecure = 'ssl';       //Sets connection prefix. Options are "", "ssl" or "tls"
                     // $mail->From = 'info@IconicGoup.gov';   //Sets the From email address for the message
                     // $mail->FromName = 'ICONIC Group';     //Sets the From name of the message
