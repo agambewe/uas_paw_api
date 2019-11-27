@@ -32,6 +32,9 @@ class MakeupModel extends CI_Model
     public function getTerlayaniMakeup() { return 
         $this->db->order_by("tanggal", "desc")->where(['status' => 1])->get('makeup')->result();
     }
+    public function find($email) {
+        return $this->db->select('*')->where(array('email' => $email))->get($this->table)->row();
+    }
     public function store($request) {
         $this->email = $request->email; 
         $this->nama = $request->nama; 

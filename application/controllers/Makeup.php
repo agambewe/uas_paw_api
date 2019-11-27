@@ -50,6 +50,22 @@ Class Makeup extends REST_Controller{
 			}
         }
 
+    public function find_get() {
+        $email = $this->get('email');
+        $email = base64_decode($email);
+        $data = $this->verify_request($this->MakeupModel->find($email));
+
+        // Send the return data as reponse
+        if(parent::HTTP_OK){
+            $status = false;
+        }
+
+        $response = ['error' => $status, 'message' => $data];
+
+        $this->response($response, $status);
+        // return $this->returnData($this->db->get('users')->result(), false);
+    }
+
     public function index_get(){
         $data = $this->verify_request($this->db->get('makeup')->result());
 
