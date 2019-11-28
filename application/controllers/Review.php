@@ -67,7 +67,7 @@ Class Review extends REST_Controller{
     }
 
     public function index_get(){
-        $data = $this->verify_request($this->db->get('review')->result());
+        $data = $this->db->get('review')->result();
 
             // Send the return data as reponse
             if(parent::HTTP_OK){
