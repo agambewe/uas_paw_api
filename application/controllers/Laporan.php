@@ -34,7 +34,7 @@ Class Laporan extends REST_Controller{
         $pdf->SetFont('Arial','B',9);
         $pdf->Cell(10,6,'NO',1,0);
         $pdf->Cell(43,6,'EMAIL',1,0);
-        $pdf->Cell(40,6,'NO TELEPON',1,0);
+        $pdf->Cell(36,6,'NO TELEPON',1,0);
         $pdf->Cell(27,6,'MODEL',1,0);
         $pdf->Cell(21,6,'WARNA',1,0);
         $pdf->Cell(30,6,'TANGGAL',1,0);
@@ -49,7 +49,7 @@ Class Laporan extends REST_Controller{
         {
             $pdf->Cell(10,6,$no,1,0);
             $pdf->Cell(43,6,$row->email,1,0);
-            $pdf->Cell(40,6,$row->noTelepon,1,0);
+            $pdf->Cell(36,6,$row->noTelepon,1,0);
             $pdf->Cell(27,6,$row->modelRambut,1,0);
             $pdf->Cell(21,6,$row->warna,1,0);
             $pdf->Cell(30,6,$row->tanggal,1,0);
