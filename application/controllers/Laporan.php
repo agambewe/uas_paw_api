@@ -40,7 +40,7 @@ Class Laporan extends REST_Controller{
         $pdf->Cell(30,6,'TANGGAL',1,0);
         $pdf->Cell(20,6,'JAM',1,0);
         $pdf->Cell(22,6,'PEMOTONG',1,0);
-        $pdf->Cell(45,6,'PAKET',1,1);
+        $pdf->Cell(50,6,'PAKET',1,1);
 
         $pdf->SetFont('Arial','',9);
         $query = $this->PotongModel->getTerlayaniPotong();
@@ -55,7 +55,7 @@ Class Laporan extends REST_Controller{
             $pdf->Cell(30,6,$row->tanggal,1,0);
             $pdf->Cell(20,6,$row->jam,1,0);
             $pdf->Cell(22,6,$row->pemotong,1,0);
-            $pdf->Cell(45,6,$row->paket,1,1);
+            $pdf->Cell(50,6,$row->paket,1,1);
             $no++;
         }
     $pdf->Output();
