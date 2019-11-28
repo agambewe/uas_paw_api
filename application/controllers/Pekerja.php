@@ -63,8 +63,8 @@ Class Pekerja extends REST_Controller{
             $this->response($response, $status);
         // return $this->returnData($this->db->get('pekerja')->result(), false);
     }
-    public function find_get(){
-        $id = $this->get('id');
+    public function find_post(){
+        $id = $this->post('id');
         $data = $this->verify_request($this->PekerjaModel->findNameById($id));
 
             // Send the return data as reponse
